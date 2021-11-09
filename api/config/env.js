@@ -29,8 +29,6 @@ production_credentials = {
 
 if (process.env.NODE_ENV === "development") {
   module.exports = development_credentials;
-}
-
-if (process.env.NODE_ENV === "production") {
+} else {
   module.exports = production_credentials;
 }
