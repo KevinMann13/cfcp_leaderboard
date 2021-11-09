@@ -13,6 +13,6 @@ RUN npm install --production
 # COPY .env.example /starter/.env.example
 COPY . /cfcp
 
-CMD ["npm","start"]
+CMD ["nodemon","server.js"]
 
 EXPOSE 3000

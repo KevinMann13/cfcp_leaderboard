@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode} from '@angular/core';
 import { Team } from './Team';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
@@ -8,10 +8,16 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   providedIn: 'root'
 })
 export class CrudService {
-  REST_API: string = '/api';
+  REST_API: string = ""
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    if (isDevMode()) {
+      this.REST_API = 'http://localhost:3000/api';
+    } else {
+      this.REST_API = '/api';
+    }
+  }
 
   GetTeams() {
     console.log("WOW!")

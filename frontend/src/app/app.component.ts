@@ -6,7 +6,7 @@ import { CrudService } from './service/crud.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private crudService: CrudService
   ) {}
@@ -14,7 +14,6 @@ export class AppComponent {
   Teams:any = [];
 
   ngOnInit() {
-    console.log("HELLO WORLD")
     this.crudService.GetTeams().subscribe(teams => {
       this.Teams = teams;
     });
