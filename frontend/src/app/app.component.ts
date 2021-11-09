@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CrudService } from './service/crud.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'cfcp';
+  constructor(
+    private crudService: CrudService
+  ) {}
+
+  Teams:any = [];
+
+  ngOnInit() {
+    console.log("HELLO WORLD")
+    this.crudService.GetTeams().subscribe(teams => {
+      this.Teams = teams;
+    });
+  }
 }
