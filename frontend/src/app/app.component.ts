@@ -15,8 +15,8 @@ export class AppComponent {
 
   ngOnInit() {
     console.log("HELLO WORLD")
-    this.crudService.GetTeams().subscribe(teams => {
-      this.Teams = teams;
-    });
+    // this.crudService.GetTeams().subscribe(teams => {
+    //   this.Teams = teams;
+    // });
   }
 }

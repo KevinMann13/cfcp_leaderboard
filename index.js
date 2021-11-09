@@ -3,7 +3,7 @@ const path = require("path");
 const http = require("http");
 const bodyParser = require('body-parser');
 
-const api = require("./api/api")
+// const api = require("./api/api")
 
 app = express();
 
@@ -17,14 +17,14 @@ app.use(express.static(path.join(__dirname, 'frontend/dist/cfcp')))
 const port = process.env.PORT || "3000"
 app.set('port', port);
 
-app.use('/api', api)
+// app.use('/api', api)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend/dist/cfcp/index.html"))
 })
 
-const db = require('./api/config/db.config');
-db.sequelize.sync();
+// const db = require('./api/config/db.config');
+// db.sequelize.sync();
 
 const server = http.createServer(app)
 
