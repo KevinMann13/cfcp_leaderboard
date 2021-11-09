@@ -4,12 +4,10 @@ const app = express();
 
 const teamRoute = require('./routes/team.routes');
 const athleteRoute = require('./routes/athlete.routes');
+const attendanceRoute = require('./routes/attendance.routes');
 
 router.use('/team', teamRoute)
 router.use('/athlete', athleteRoute)
-
-// router.get("/meow", function(req, res, next) {
-//     res.status(200).send("mix1");
-// })
+router.use('/attendance', attendanceRoute)
 
 module.exports = router;

@@ -24,8 +24,11 @@ db.sequelize = sequelize;
 
 db.Team = require("../models/Team.js")(sequelize, Sequelize);
 db.Athlete = require("../models/Athlete.js")(sequelize, Sequelize);
+db.Attendance = require("../models/Attendance.js")(sequelize, Sequelize);
 
-db.Athlete.belongsTo(db.Team, {as: 'Team'});
-db.Team.hasMany(db.Athlete, {as: 'Athletes'})
+db.Athlete.belongsTo(db.Team, {as: 'team'});
+
+db.Team.hasMany(db.Athlete, {as: 'athletes'})
+db.Athlete.hasMany(db.Attendance, {as: 'attendance'})
 
 module.exports = db;

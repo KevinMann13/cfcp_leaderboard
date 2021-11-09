@@ -1,0 +1,19 @@
+<div *ngIf="team">
+    <h2>{{team.name}}</h2>
+    <p>Captain: {{team.capitan_name}}</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Athlete</th>
+                <th scope="col">Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let athlete of team.athletes">
+                <td scope="row" [routerLink]="['/athlete', athlete.id]" class="table_select">{{athlete.name}}</td>
+                <td>{{athlete.attendance.length}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

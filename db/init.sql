@@ -7,19 +7,19 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP DATABASE IF EXISTS `comp`;
-CREATE DATABASE `comp` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `comp`;
+DROP DATABASE IF EXISTS comp;
+CREATE DATABASE comp /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE comp;
 
-DROP TABLE IF EXISTS `athletes`;
-CREATE TABLE `athletes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `team_id` int DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+DROP TABLE IF EXISTS athletes;
+CREATE TABLE athletes (
+  id int NOT NULL AUTO_INCREMENT,
+  team_id int DEFAULT NULL,
+  name varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `athletes` (`id`, `team_id`, `name`) VALUES
+INSERT INTO athletes (id, team_id, name) VALUES
 (1, 6, 'Anna Nelson Gilmer'),
 (2, 6, 'Gerald Talton'),
 (3, 6, 'Lisa Vasile'),
@@ -88,25 +88,102 @@ INSERT INTO `athletes` (`id`, `team_id`, `name`) VALUES
 (66, 5, 'Molly Isbell Lewis'),
 (67, 5, 'Bonnie Boyette Caudill');
 
-DROP TABLE IF EXISTS `attendance`;
-CREATE TABLE `attendance` (
-  `athelete_id` int NOT NULL,
-  `date` date NOT NULL
+DROP TABLE IF EXISTS attendances;
+CREATE TABLE attendances (
+  id int NOT NULL AUTO_INCREMENT,
+  athlete_id int NOT NULL,
+  date date NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `attendance` (`athelete_id`, `date`) VALUES
-(1,	'2021-11-09');
+INSERT INTO attendances (id, athlete_id, date) VALUES
+(0, 1, '2021-11-01'),
+(1, 17, '2021-11-01'),
+(2, 24, '2021-11-01'),
+(3, 29, '2021-11-01'),
+(4, 35, '2021-11-01'),
+(5, 23, '2021-11-01'),
+(6, 35, '2021-11-01'),
+(7, 46, '2021-11-01'),
+(8, 7, '2021-11-01'),
+(9, 8, '2021-11-01'),
+(10, 8, '2021-11-01'),
+(11, 50, '2021-11-01'),
+(12, 18, '2021-11-01'),
+(13, 43, '2021-11-01'),
+(14, 16, '2021-11-02'),
+(15, 6, '2021-11-02'),
+(16, 19, '2021-11-02'),
+(17, 48, '2021-11-02'),
+(18, 14, '2021-11-02'),
+(19, 8, '2021-11-02'),
+(20, 15, '2021-11-02'),
+(21, 30, '2021-11-02'),
+(22, 45, '2021-11-02'),
+(23, 31, '2021-11-02'),
+(24, 10, '2021-11-02'),
+(25, 13, '2021-11-02'),
+(26, 10, '2021-11-03'),
+(27, 34, '2021-11-04'),
+(28, 34, '2021-11-04'),
+(29, 21, '2021-11-04'),
+(30, 39, '2021-11-04'),
+(31, 5, '2021-11-04'),
+(32, 2, '2021-11-04'),
+(33, 12, '2021-11-04'),
+(34, 46, '2021-11-04'),
+(35, 15, '2021-11-04'),
+(36, 45, '2021-11-04'),
+(37, 18, '2021-11-04'),
+(38, 5, '2021-11-05'),
+(39, 37, '2021-11-06'),
+(40, 36, '2021-11-06'),
+(41, 12, '2021-11-06'),
+(42, 7, '2021-11-06'),
+(43, 34, '2021-11-06'),
+(44, 23, '2021-11-06'),
+(45, 41, '2021-11-06'),
+(46, 7, '2021-11-06'),
+(47, 23, '2021-11-06'),
+(48, 50, '2021-11-06'),
+(49, 9, '2021-11-06'),
+(50, 14, '2021-11-06'),
+(51, 31, '2021-11-06'),
+(52, 20, '2021-11-06'),
+(53, 14, '2021-11-06'),
+(54, 20, '2021-11-06'),
+(55, 29, '2021-11-06'),
+(56, 13, '2021-11-06'),
+(57, 8, '2021-11-06'),
+(58, 12, '2021-11-07'),
+(59, 34, '2021-11-07'),
+(60, 2, '2021-11-08'),
+(61, 1, '2021-11-08'),
+(62, 16, '2021-11-08'),
+(63, 2, '2021-11-08'),
+(64, 36, '2021-11-08'),
+(65, 28, '2021-11-08'),
+(66, 20, '2021-11-08'),
+(67, 26, '2021-11-08'),
+(68, 25, '2021-11-08'),
+(69, 12, '2021-11-08'),
+(70, 11, '2021-11-08'),
+(71, 49, '2021-11-08'),
+(72, 30, '2021-11-08'),
+(73, 8, '2021-11-08'),
+(74, 31, '2021-11-08'),
+(75, 48, '2021-11-08');
 
 
-DROP TABLE IF EXISTS `teams`;
-CREATE TABLE `teams` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `capitan_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+DROP TABLE IF EXISTS teams;
+CREATE TABLE teams (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  capitan_name varchar(255) NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `teams` (`id`, `name`, `capitan_name`) VALUES
+INSERT INTO teams (id, name, capitan_name) VALUES
 (1,'Elijah\’s Bar-Barians', 'Elijah Subiono'),
 (2,'Ka\’eo\’s Army', 'Ka\’eo Subiono'),
 (3,'Kulani\’s Legion', 'Kulani Subiono'),

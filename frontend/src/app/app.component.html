@@ -1,8 +1,22 @@
-<div *ngFor="let team of Teams">
-  <h3>{{team.name}}</h3>
-  <ul>
-    <li *ngFor="let athlete of team.Athletes">{{athlete.name}}</li>
-  </ul>
-</div>
+<header>
+  <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a routerLink="/leaderboard" class="d-flex align-items-center text-dark text-decoration-none">
+      <span class="fs-4">Crossfit Cedar Park Battle</span>
+    </a>
 
-<router-outlet></router-outlet>
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/events" routerLinkActive="active">Events</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="pt-5 my-5 text-muted border-top">
+  Created by Kevin Mann &middot; &copy; 2021
+</footer>
+
+

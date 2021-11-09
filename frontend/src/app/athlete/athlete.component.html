@@ -1,0 +1,17 @@
+<div *ngIf="athlete">
+    <h2>{{athlete.name}}</h2>
+    <p [routerLink]="['/team', athlete.team.id]">{{athlete.team.name}}</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let attendance of athlete.attendance">
+                <td>{{attendance.date}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

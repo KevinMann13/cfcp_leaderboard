@@ -1,0 +1,15 @@
+<h2>Leaderboard</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Team Name</th>
+      <th scope="col">Attendance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team_score of team_scores">
+      <td scope="row" [routerLink]="['/team', team_score.id]" class="table_select">{{team_score.name}}</td>
+      <td>{{team_score.attendances}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -19,9 +19,20 @@ export class CrudService {
     }
   }
 
+  GetLeaderboard() {
+    return this.httpClient.get(`${this.REST_API}/team/leaderboard`);
+  }
+
   GetTeams() {
-    console.log("WOW!")
     return this.httpClient.get(`${this.REST_API}/team`);
+  }
+
+  GetTeamByID(id: String|null) {
+    return this.httpClient.get(`${this.REST_API}/team/${id}`);
+  }
+
+  GetAthleteByID(id: String|null) {
+    return this.httpClient.get(`${this.REST_API}/athlete/${id}`);
   }
 
   // Error 
