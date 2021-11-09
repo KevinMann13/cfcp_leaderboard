@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'frontend/dist/cfcp')))
 const port = process.env.PORT || "3000"
 app.set('port', port);
 
-// app.use('/api', api)
+app.use('/api', api)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend/dist/cfcp/index.html"))
