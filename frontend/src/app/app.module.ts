@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EditorModule } from "@tinymce/tinymce-angular";
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { TeamComponent } from './team/team.component';
@@ -26,7 +27,10 @@ import { EventsComponent } from './events/events.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    EditorModule
+    EditorModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

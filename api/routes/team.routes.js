@@ -6,7 +6,7 @@ let Team = db.Team;
 
 teamRoute.route('/leaderboard').get((req, res) => {
     q = `
-    SELECT teams.id, teams.name, COUNT(attendances.id) as attendances
+    SELECT teams.id, teams.name, COUNT(attendances.id) as score
     FROM teams
     LEFT JOIN athletes ON teams.id = athletes.team_id
     LEFT JOIN attendances ON attendances.athlete_id = athletes.id

@@ -1,5 +1,5 @@
 import { Injectable, isDevMode} from '@angular/core';
-import { Team } from './Team';
+import { Team, TeamScore } from './models';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -20,7 +20,7 @@ export class CrudService {
   }
 
   GetLeaderboard() {
-    return this.httpClient.get(`${this.REST_API}/team/leaderboard`);
+    return this.httpClient.get<TeamScore[]>(`${this.REST_API}/team/leaderboard`);
   }
 
   GetTeams() {
