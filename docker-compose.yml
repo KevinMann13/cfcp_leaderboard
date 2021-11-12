@@ -24,6 +24,8 @@ services:
     volumes:
      - .:/cfcp
      - /cfcp/node_modules
+    env_file:
+     - ./.env
   web:
     build: ./frontend
     ports:

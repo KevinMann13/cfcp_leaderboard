@@ -124,4 +124,4 @@ frontend/node_modules/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 .db_credentials
-
+.ebextensions

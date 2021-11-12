@@ -22,6 +22,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.User = require("../models/User.js")(sequelize, Sequelize);
 db.Team = require("../models/Team.js")(sequelize, Sequelize);
 db.Athlete = require("../models/Athlete.js")(sequelize, Sequelize);
 db.Attendance = require("../models/Attendance.js")(sequelize, Sequelize);
