@@ -9,35 +9,41 @@ const db = require('../config/db.config')
 let User = db.User;
 
 userRoute.route('/authenticate').post((req, res, next) => {
+    console.log("HER!")
+    console.log(req.body)
     passport.authenticate('local', (error, user, info) => {
-        if (error) { return next(error); }
+        if (error) {
+            res.status(400).json({ "error": error });
+            return next();
+        }
+        if (info) {
+            res.status(400).json({ "error": info });
+            return next();
+        }
 
         req.logIn(user, (error) => {
-          if (error) { return next(error); }
-          res.status(400).json({ "statusCode": 200, "user": user });
-          next()
+            if (error) { return next(error); }
+            res.json({ "statusCode": 200, "user": user });
+            next()
         });
-      })(req, res, next);
+    })(req, res, next);
 });
 
 userRoute.route('/register').post((req, res, next) => {
-    User.findOne({where: { email: req.body.email }}).then(user => {
+    User.findOne({ where: { email: req.body.email } }).then(user => {
         if (user) {
-            res.json({'statusCode': 500, 'message': "Account with that email address already exists."})
+            res.json({ 'statusCode': 500, 'message': "Account with that email address already exists." })
             return
         }
 
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.password, salt, (err, hashed_password) => {
-                User.create({
-                    email: req.body.email,
-                    password: hashed_password,
-                    salt: salt
-                }).then(user => {
-                    res.json(user)
-                })
-            });
-          });
+        bcrypt.hash(req.body.password, 10, (err, hashed_password) => {
+            User.create({
+                email: req.body.email,
+                password: hashed_password
+            }).then(user => {
+                res.json(user)
+            })
+        });
     })
 });
 

@@ -14,6 +14,9 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { TeamComponent } from './team/team.component';
 import { AthleteComponent } from './athlete/athlete.component';
 import { EventsComponent } from './events/events.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { EventsComponent } from './events/events.component';
     LeaderboardComponent,
     TeamComponent,
     AthleteComponent,
-    EventsComponent
+    EventsComponent,
+    ProfileComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

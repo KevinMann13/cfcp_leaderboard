@@ -1,13 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthenticateResponse } from "./models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  REST_API: string = ""
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient) {
+    if (isDevMode()) {
+      this.REST_API = 'http://localhost:3000/api';
+    } else {
+      this.REST_API = '/api';
+    }
+  }
 
   public isAuthenticated() : Boolean {
     let userData = localStorage.getItem('userInfo')
@@ -17,11 +25,18 @@ export class AuthService {
     return false;
   }
 
-  public setUserInfo(user: String){
+  public setUserInfo(user: Object){
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
-  public validate(email: String, password: String) {
-    return this.http.post('/api/authenticate', {'username' : email, 'password' : password}).toPromise()
+  public getUserInfo(user: Object){
+    let userData = localStorage.getItem('userInfo')
+    if (userData) {
+      return JSON.parse(userData)
+    }
+  }
+
+  public validate(email: string, password: string) {
+    return this.http.post<AuthenticateResponse>(`${this.REST_API}/user/authenticate`, {'email' : email, 'password' : password})
   }
 }

@@ -1,30 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  loginForm!: FormGroup;
+export class AppComponent {
 
   constructor() {}
-
-  ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required])
-    })
-  }
-  get emailField(): any {
-    return this.loginForm.get('email');
-  }
-  get passwordField(): any {
-    return this.loginForm.get('password');
-  }
-  loginFormSubmit(): void {
-    console.log(this.loginForm.value);
-    // Call Api
-  }
 }

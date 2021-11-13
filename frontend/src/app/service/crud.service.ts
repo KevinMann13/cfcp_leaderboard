@@ -1,5 +1,5 @@
 import { Injectable, isDevMode} from '@angular/core';
-import { Team, TeamScore } from './models';
+import { Team, TeamScore, Athlete } from './models';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -29,6 +29,10 @@ export class CrudService {
 
   GetTeamByID(id: String|null) {
     return this.httpClient.get(`${this.REST_API}/team/${id}`);
+  }
+
+  GetAthletes() {
+    return this.httpClient.get<Athlete[]>(`${this.REST_API}/athlete`);
   }
 
   GetAthleteByID(id: String|null) {

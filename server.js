@@ -1,11 +1,13 @@
 const express = require("express");
 const path = require("path");
 const http = require("http");
-const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session')
 
 app = express();
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json())
 
 app.use(require('cors')());
 
@@ -29,8 +31,6 @@ app.use(session(sess))
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'frontend/dist/cfcp')))
 
