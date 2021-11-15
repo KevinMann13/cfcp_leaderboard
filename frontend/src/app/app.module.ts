@@ -18,6 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
+import { authInterceptorProviders } from "./service/auth-interceptor.service";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,7 @@ import { RegisterComponent } from './register/register.component';
     }),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

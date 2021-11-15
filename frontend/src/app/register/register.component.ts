@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { CrudService } from '../service/crud.service';
 import { Athlete } from "../service/models";
+import { AuthService } from "../service/auth.service";
+import { TokenStorageService } from "../service/token-storage.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +17,10 @@ export class RegisterComponent implements OnInit {
   athletes!: Array<Athlete>;
 
   constructor(
-    private crudService: CrudService
+    private crudService: CrudService,
+    private authService: AuthService,
+    private tokenService: TokenStorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +33,10 @@ export class RegisterComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       athlete: new FormControl('', [Validators.required])
     })
+
+    if (this.tokenService.getUser()) {
+      this.router.navigate(["/", "profile"])
+    }
   }
 
   get emailField(): any {
@@ -38,8 +48,14 @@ export class RegisterComponent implements OnInit {
   get athleteField(): any {
     return this.athleteField.get('athlete');
   }
-  
-  registerFormSubmit(): void {
 
+  registerFormSubmit(): void {
+    this.authService.register(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.athlete).subscribe(
+      data => {
+        this.tokenService.saveUser(data)
+        window.location.reload();
+      },
+      error => { console.log("ERROR:"); console.log(error) }
+    )
   }
 }

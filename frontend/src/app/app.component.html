@@ -5,9 +5,17 @@
     </a>
 
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/leaderboard"
+        routerLinkActive="active">Leaderboard</a>
       <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/events" routerLinkActive="active">Events</a>
-      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/login" routerLinkActive="active">Login</a>
+
+      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/profile" routerLinkActive="active"
+        *ngIf="isLoggedIn">Profile</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" (click)="logout()" *ngIf="isLoggedIn">Logout</a>
+
+
+      <a class="me-3 py-2 text-dark text-decoration-none" routerLink="/login" routerLinkActive="active"
+        *ngIf="!isLoggedIn">Login</a>
     </nav>
   </div>
 </header>

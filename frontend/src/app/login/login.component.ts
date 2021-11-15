@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from "../service/auth.service";
+import { TokenStorageService } from '../service/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService:AuthService,
+    private tokenService: TokenStorageService,
     private router:Router
     ) {}
 
@@ -22,6 +24,10 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     })
+
+    if (this.tokenService.getUser()) {
+      this.router.navigate(["/", "profile"])
+    }
   }
 
   get emailField(): any {
@@ -32,10 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginFormSubmit(): void {
-    console.log()
-
-    this.authService.validate(this.loginForm.value.email, this.loginForm.value.password).subscribe((response) => {
-      this.authService.setUserInfo({'user': response.user});
+    this.authService.authenticate(this.loginForm.value.email, this.loginForm.value.password).subscribe((response) => {
+      this.tokenService.saveUser(response);
+      window.location.reload();
     })
   }
 }

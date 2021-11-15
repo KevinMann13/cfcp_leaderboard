@@ -1,12 +1,12 @@
 export class Team {
     id!: Number;
-    name!: String;
-    capitan_name!: String;
+    name!: string;
+    capitan_name!: string;
 }
 
 export class TeamScore {
     id!: Number;
-    name!: String;
+    name!: string;
     score!: Number;
 }
 
@@ -17,10 +17,14 @@ export class AuthenticateResponse {
 
 export class User {
     id!: Number;
-    email!: String;
+    email!: string;
+    password!: string;
+    token!: string;
+    athlete!: Athlete;
 }
 
 export class Athlete {
     id!: Number;
-    name!: String;
+    name!: string;
+    team!: Team
 }

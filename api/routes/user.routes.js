@@ -1,73 +1,91 @@
-
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const jwt = require('jsonwebtoken')
 
 const userRoute = express.Router();
 
 const db = require('../config/db.config')
 let User = db.User;
 
+const auth = require('../middleware/auth')
+
 userRoute.route('/authenticate').post((req, res, next) => {
-    console.log("HER!")
-    console.log(req.body)
-    passport.authenticate('local', (error, user, info) => {
-        if (error) {
-            res.status(400).json({ "error": error });
-            return next();
-        }
-        if (info) {
-            res.status(400).json({ "error": info });
-            return next();
+    try {
+        const { email, password } = req.body;
+
+        // Validate user input
+        if (!(email && password)) {
+            res.status(400).send("All input is required");
         }
 
-        req.logIn(user, (error) => {
-            if (error) { return next(error); }
-            res.json({ "statusCode": 200, "user": user });
-            next()
-        });
-    })(req, res, next);
+        User.findOne({ where: { email: email } }).then(user => {
+            if (user == undefined) {
+                return res.json({ 'statusCode': 500, 'message': "Invalid email address" })
+            }
+
+            if (bcrypt.compareSync(password, user.password)) {
+                const token = jwt.sign(
+                    { user_id: user._id, email },
+                    process.env.SESSION_SECRET,
+                    {
+                        expiresIn: "2h",
+                    }
+                );
+
+                user.token = token;
+
+                return res.status(200).json(user);
+            } else {
+                return res.json({ 'statusCode': 500, 'message': "Invalid password" })
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
 });
 
 userRoute.route('/register').post((req, res, next) => {
-    User.findOne({ where: { email: req.body.email } }).then(user => {
-        if (user) {
-            res.json({ 'statusCode': 500, 'message': "Account with that email address already exists." })
-            return
-        }
+    try {
+        email = req.body.email
+        password = req.body.password
+        athlete_id = req.body.athlete_id
 
-        bcrypt.hash(req.body.password, 10, (err, hashed_password) => {
+        User.findOne({ where: { email: email } }).then(old_user => {
+            if (old_user) {
+                return res.json({ 'statusCode': 500, 'message': "Account with that email address already exists." })
+            }
+
+            encrypted_password = bcrypt.hashSync(password, 10)
+
             User.create({
-                email: req.body.email,
-                password: hashed_password
+                email: email.toLowerCase(), // sanitize: convert email to lowercase
+                password: encrypted_password,
+                athleteId: athlete_id
             }).then(user => {
-                res.json(user)
-            })
-        });
-    })
+                // Create token
+                const token = jwt.sign(
+                    { user_id: user._id, email },
+                    process.env.SESSION_SECRET,
+                    {
+                        expiresIn: "2h",
+                    }
+                );
+
+                user.token = token
+
+                res.status(201).json(user)
+            });
+        })
+    } catch (error) {
+        console.log(error)
+    }
 });
 
-// userRoute.route('/').get((req, res) => {
-//     Athlete.findAll({include: ['team']}).then(athletes => {
-//         res.json(athletes)
-//     })
-// })
-
-// userRoute.route('/:id').get((req, res) => {
-//     Athlete.findByPk(req.params.id, {include: { all: true, nested: true }}).then(athlete => {
-//         res.json(athlete);
-//     })
-// })
-
-// userRoute.route('/:id').put((req, res, next) => {
-//     let athlete = req.body;
-//     let id = req.body.id
-
-//     Athlete.update(athlete,
-//         { where: { id: id } }
-//     ).then(() => {
-//         res.status(200).json({ msg: "updated successfully an athlete with id = " + id });
-//     });
-// })
+userRoute.route('/profile').get(auth, (req, res) => {
+    User.findOne({where: {email: req.user.email}, include: { all: true, nested: true }}).then(user => {
+        res.json(user);
+    })
+})
 
 module.exports = userRoute;

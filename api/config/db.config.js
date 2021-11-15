@@ -32,4 +32,6 @@ db.Athlete.belongsTo(db.Team, {as: 'team'});
 db.Team.hasMany(db.Athlete, {as: 'athletes'})
 db.Athlete.hasMany(db.Attendance, {as: 'attendance'})
 
+db.User.belongsTo(db.Athlete)
+
 module.exports = db;

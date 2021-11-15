@@ -1,1 +1,4 @@
-<p>profile works!</p>
+<div *ngIf="user_profile">
+    <h1>{{user_profile.athlete.name}}</h1>
+    <span class="sub"><i>Team: </i>{{user_profile.athlete.team.name}}</span>
+</div>

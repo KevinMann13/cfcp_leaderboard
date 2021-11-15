@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'team/:id', component: TeamComponent },
   { path: 'athlete/:id', component: AthleteComponent },
   { path: 'events', component: EventsComponent },
