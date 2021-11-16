@@ -12,7 +12,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Meters Rowed</mat-label>
-      <input matInput formControlName="meters" type="number">
+      <input matInput formControlName="meters" type="number" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
     </mat-form-field>
   </form>
 </div>
