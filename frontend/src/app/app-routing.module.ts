@@ -8,11 +8,13 @@ import { EventsComponent } from './events/events.component';
 import { ProfileComponent } from "./profile/profile.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { RowingComponent } from "./rowing/rowing.component";
 
 import { AuthGuardService } from "./service/auth-guard.service";
 
 const routes: Routes = [
   { path: 'leaderboard', component: LeaderboardComponent },
+  { path: 'rowing', component: RowingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },

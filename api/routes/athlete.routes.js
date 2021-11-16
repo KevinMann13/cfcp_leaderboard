@@ -13,7 +13,12 @@ athleteRoute.route('/').post((req, res, next) => {
 });
 
 athleteRoute.route('/').get((req, res) => {
-    Athlete.findAll({include: ['team']}).then(athletes => {
+    Athlete.findAll({
+        include: ['team'],
+        order: [
+            ['name', 'ASC'],
+        ]
+    }).then(athletes => {
         res.json(athletes)
     })
 })

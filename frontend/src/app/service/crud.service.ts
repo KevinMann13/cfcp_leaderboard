@@ -1,5 +1,5 @@
 import { Injectable, isDevMode} from '@angular/core';
-import { Team, TeamScore, Athlete, User } from './models';
+import { Team, TeamScore, Athlete, User, RowingScore } from './models';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -23,6 +23,10 @@ export class CrudService {
     return this.httpClient.get<TeamScore[]>(`${this.REST_API}/team/leaderboard`);
   }
 
+  GetRowingLeaderboard() {
+    return this.httpClient.get<RowingScore[]>(`${this.REST_API}/row/leaderboard`);
+  }
+
   GetTeams() {
     return this.httpClient.get(`${this.REST_API}/team`);
   }
@@ -41,6 +45,10 @@ export class CrudService {
 
   GetProfile() {
     return this.httpClient.get<User>(`${this.REST_API}/user/profile`);
+  }
+
+  AddRow(date:Date, meters:number) {
+    return this.httpClient.post(`${this.REST_API}/row`, {date: date, meters: meters});
   }
 
   // Error 

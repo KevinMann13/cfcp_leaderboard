@@ -12,12 +12,13 @@ import { TokenStorageService } from '../service/token-storage.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  error_message!: string
 
   constructor(
-    private authService:AuthService,
+    private authService: AuthService,
     private tokenService: TokenStorageService,
-    private router:Router
-    ) {}
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -38,9 +39,15 @@ export class LoginComponent implements OnInit {
   }
 
   loginFormSubmit(): void {
-    this.authService.authenticate(this.loginForm.value.email, this.loginForm.value.password).subscribe((response) => {
-      this.tokenService.saveUser(response);
-      window.location.reload();
-    })
+    this.error_message = ""
+    this.authService.authenticate(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+      (response) => {
+        this.tokenService.saveUser(response);
+        window.location.reload();
+      },
+      (error) => {
+        this.error_message = error.error
+      }
+    )
   }
 }

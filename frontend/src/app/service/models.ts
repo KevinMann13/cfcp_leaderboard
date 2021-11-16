@@ -1,22 +1,23 @@
+
 export class Team {
-    id!: Number;
+    id!: number;
     name!: string;
     capitan_name!: string;
 }
 
 export class TeamScore {
-    id!: Number;
+    id!: number;
     name!: string;
-    score!: Number;
+    score!: number;
 }
 
 export class AuthenticateResponse {
-    statusCode!: Number;
+    statusCode!: number;
     user!: User;
 }
 
 export class User {
-    id!: Number;
+    id!: number;
     email!: string;
     password!: string;
     token!: string;
@@ -24,7 +25,27 @@ export class User {
 }
 
 export class Athlete {
-    id!: Number;
+    id!: number;
     name!: string;
-    team!: Team
+    team!: Team;
+    attendance!: Attendance[];
+    rowing!: Row[];
+}
+
+export class Attendance {
+    id!: number;
+    date!: Date;
+}
+
+export class Row {
+    id!: number;
+    date!: Date;
+    meters!: number;
+}
+
+export class RowingScore {
+    id!: number;
+    name!: string;
+    team_name!: string;
+    total_meters!: number;
 }

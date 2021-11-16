@@ -1,0 +1,16 @@
+<h2 class="float-start headline">Rowing Leaderboard</h2>
+<button mat-raised-button (click)="openDialog()" class="float-end" color="primary">Add your meters!</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Athlete</th>
+      <th scope="col">Meters Rowed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rows">
+      <td scope="row" class="table_select"><b>{{row.name}}</b> <br> {{row.team_name}}</td>
+      <td>{{row.total_meters | comma}}</td>
+    </tr>
+  </tbody>
+</table>

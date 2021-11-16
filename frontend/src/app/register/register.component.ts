@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('password');
   }
   get athleteField(): any {
-    return this.athleteField.get('athlete');
+    return this.registerForm.get('athlete');
   }
 
   registerFormSubmit(): void {

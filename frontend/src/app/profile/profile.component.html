@@ -1,4 +1,43 @@
 <div *ngIf="user_profile">
-    <h1>{{user_profile.athlete.name}}</h1>
+    <h2 class="mat-headline">{{user_profile.athlete.name}}</h2>
     <span class="sub"><i>Team: </i>{{user_profile.athlete.team.name}}</span>
+
+    <div>
+        <h3 class="mat-title">Attendance</h3>
+
+        <table mat-table [dataSource]="user_profile.athlete.attendance">
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let attendance"> {{attendance.date | date}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="attendanceColumns"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: attendanceColumns"></tr>
+        </table>
+
+    </div>
+
+    <div>
+        <h3 class="mat-title float-start">Rowing</h3>
+        <button mat-raised-button cdkFocusInitial (click)="openDialog()" class="float-start" color="primary" id="btn_add_rowing">Add Rowing</button>
+        <div class="clearfix"></div>
+        <table mat-table [dataSource]="user_profile.athlete.rowing">
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let row"> {{row.date | date}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="meters">
+                <th mat-header-cell *matHeaderCellDef> Meters </th>
+                <td mat-cell *matCellDef="let row"> {{row.meters | comma}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="rowingColumns"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: rowingColumns"></tr>
+
+
+        </table>
+    </div>
 </div>
+

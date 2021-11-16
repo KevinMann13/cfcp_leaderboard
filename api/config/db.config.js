@@ -26,6 +26,7 @@ db.User = require("../models/User.js")(sequelize, Sequelize);
 db.Team = require("../models/Team.js")(sequelize, Sequelize);
 db.Athlete = require("../models/Athlete.js")(sequelize, Sequelize);
 db.Attendance = require("../models/Attendance.js")(sequelize, Sequelize);
+db.Row = require("../models/Row.js")(sequelize, Sequelize);
 
 db.Athlete.belongsTo(db.Team, {as: 'team'});
 
@@ -33,5 +34,7 @@ db.Team.hasMany(db.Athlete, {as: 'athletes'})
 db.Athlete.hasMany(db.Attendance, {as: 'attendance'})
 
 db.User.belongsTo(db.Athlete)
+
+db.Athlete.hasMany(db.Row, {as: 'rowing'})
 
 module.exports = db;

@@ -16,12 +16,12 @@ userRoute.route('/authenticate').post((req, res, next) => {
 
         // Validate user input
         if (!(email && password)) {
-            res.status(400).send("All input is required");
+            res.status(401).send("All input is required");
         }
 
         User.findOne({ where: { email: email } }).then(user => {
             if (user == undefined) {
-                return res.json({ 'statusCode': 500, 'message': "Invalid email address" })
+                return res.status(401).send("Invalid email address")
             }
 
             if (bcrypt.compareSync(password, user.password)) {
@@ -29,7 +29,7 @@ userRoute.route('/authenticate').post((req, res, next) => {
                     { user_id: user._id, email },
                     process.env.SESSION_SECRET,
                     {
-                        expiresIn: "2h",
+                        expiresIn: "1y",
                     }
                 );
 
@@ -37,7 +37,7 @@ userRoute.route('/authenticate').post((req, res, next) => {
 
                 return res.status(200).json(user);
             } else {
-                return res.json({ 'statusCode': 500, 'message': "Invalid password" })
+                return res.status(401).send("Invalid password")
             }
         })
     } catch (error) {
@@ -68,7 +68,7 @@ userRoute.route('/register').post((req, res, next) => {
                     { user_id: user._id, email },
                     process.env.SESSION_SECRET,
                     {
-                        expiresIn: "2h",
+                        expiresIn: "1y",
                     }
                 );
 

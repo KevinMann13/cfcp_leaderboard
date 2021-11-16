@@ -7,6 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from "@angular/material/button";
+import { MatTableModule } from "@angular/material/table";
+
+import { FormsModule } from '@angular/forms';
+
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -19,6 +29,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 import { authInterceptorProviders } from "./service/auth-interceptor.service";
+import { CommaPipe } from './comma.pipe';
+import { RowingComponent } from './rowing/rowing.component';
+import { RowingInputComponent } from './rowing-input/rowing-input.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +42,10 @@ import { authInterceptorProviders } from "./service/auth-interceptor.service";
     EventsComponent,
     ProfileComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CommaPipe,
+    RowingComponent,
+    RowingInputComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +56,14 @@ import { authInterceptorProviders } from "./service/auth-interceptor.service";
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
