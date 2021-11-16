@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   athletes!: Array<Athlete>;
+  error_message!: string
 
   constructor(
     private crudService: CrudService,
@@ -55,7 +56,9 @@ export class RegisterComponent implements OnInit {
         this.tokenService.saveUser(data)
         window.location.reload();
       },
-      error => { console.log("ERROR:"); console.log(error) }
+      error => { 
+        console.log(error);
+        this.error_message = error.error }
     )
   }
 }

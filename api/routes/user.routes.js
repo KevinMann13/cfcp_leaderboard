@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
 const jwt = require('jsonwebtoken')
 
 const userRoute = express.Router();
@@ -53,7 +52,7 @@ userRoute.route('/register').post((req, res, next) => {
 
         User.findOne({ where: { email: email } }).then(old_user => {
             if (old_user) {
-                return res.json({ 'statusCode': 500, 'message': "Account with that email address already exists." })
+                return res.status(500).send("Account with that email address already exists.")
             }
 
             encrypted_password = bcrypt.hashSync(password, 10)

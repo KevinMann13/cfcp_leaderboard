@@ -29,5 +29,10 @@
     <div *ngIf="athleteField.touched && athleteField.hasError('required')" class="d-block invalid-feedback">
       Please select your name</div>
   </div>
+
+  <div class="mb-3" *ngIf="error_message" class="error_message">
+    {{error_message}}
+  </div>
+  
   <button type="submit" [disabled]="registerForm.invalid" class=" mt-3 btn btn-primary w-100">Submit</button>
 </form>
