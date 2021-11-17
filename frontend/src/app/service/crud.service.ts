@@ -47,9 +47,30 @@ export class CrudService {
     return this.httpClient.get<User>(`${this.REST_API}/user/profile`);
   }
 
-  AddRow(date:Date, meters:number) {
-    return this.httpClient.post(`${this.REST_API}/row`, {date: date, meters: meters});
+  AddRow(date:Date, meters:number, image: File) {
+    const formData: FormData = new FormData();
+
+    formData.append('file', image);
+    formData.append('date', date.toString());
+    formData.append('meters', meters.toString());
+
+
+    return this.httpClient.post(`${this.REST_API}/row`, formData);
   }
+
+
+  // upload(file: File) {
+  //   const formData: FormData = new FormData();
+
+  //   formData.append('file', file);
+
+  //   const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+  //     reportProgress: true,
+  //     responseType: 'json'
+  //   });
+
+  //   return this.http.request(req);
+  // }
 
   // Error 
   handleError(error: HttpErrorResponse) {

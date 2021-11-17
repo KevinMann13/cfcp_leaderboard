@@ -1,15 +1,21 @@
 const express = require("express");
 const path = require("path");
 const http = require("http");
+const fileUpload = require('express-fileupload');
 
 app = express();
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 app.use(require('cors')());
 
 const api = require("./api/api")
+
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 }
+}));
+
 
 app.use(express.static(path.join(__dirname, 'frontend/dist/cfcp')))
 

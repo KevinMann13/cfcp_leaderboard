@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
     meters: {
       type: Sequelize.INTEGER
     },
+    proof_img: {
+      type: Sequelize.STRING
+    },
   })
 
   return Row;

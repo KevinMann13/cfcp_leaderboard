@@ -33,6 +33,11 @@
                 <td mat-cell *matCellDef="let row"> {{row.meters | comma}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="proof">
+                <th mat-header-cell *matHeaderCellDef> Proof </th>
+                <td mat-cell *matCellDef="let row"> <img src="{{row.proof_img}}"> </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="rowingColumns"></tr>
             <tr mat-row *matRowDef="let myRowData; columns: rowingColumns"></tr>
 

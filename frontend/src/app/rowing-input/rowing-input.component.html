@@ -12,12 +12,20 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Meters Rowed</mat-label>
-      <input matInput formControlName="meters" type="number" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+      <input matInput formControlName="meters" type="number"
+        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
     </mat-form-field>
+
+    <button mat-raised-button (click)="openInput($event)" color="accent" id="upload_btn" type="button">Upload image for proof</button>
+    <input hidden formControlName="image" type="file" id="fileInput" name="fileInput" accept="image/*"
+      (change)="selectImage($event)" />
+
+    <div>
+      <img [src]="preview" class="preview">
+    </div>
   </form>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button cdkFocusInitial (click)="rowingInputFormSubmit()" color="primary">Submit</button>
-
+  <button mat-raised-button [disabled]="rowingInputForm.invalid" cdkFocusInitial (click)="rowingInputFormSubmit()" color="primary" class="float-end">Submit</button>
 </div>

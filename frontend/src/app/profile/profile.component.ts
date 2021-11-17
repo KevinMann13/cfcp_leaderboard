@@ -14,7 +14,7 @@ import { TokenStorageService } from '../service/token-storage.service';
 })
 export class ProfileComponent implements OnInit {
   user_profile!: User;
-  rowingColumns = ['date', 'meters'];
+  rowingColumns = ['date', 'meters', 'proof'];
   attendanceColumns = ['date'];
 
   constructor(

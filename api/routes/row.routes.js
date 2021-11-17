@@ -1,6 +1,12 @@
 const express = require('express');
+const crypto = require('crypto')
+
+const sharp = require('sharp')
+
+
 const auth = require('../middleware/auth')
 const db = require('../config/db.config')
+const s3 = require('../config/s3')
 
 const rowRoute = express.Router();
 
@@ -13,7 +19,7 @@ rowRoute.route('/leaderboard').get((req, res) => {
     LEFT JOIN teams ON teams.id = athletes.team_id
     GROUP BY 1,2,3
     ORDER BY 4 DESC`
-    
+
     db.sequelize.query(q, { type: db.sequelize.QueryTypes.SELECT }).then(leaderboard => {
         res.json(leaderboard)
     })
@@ -21,16 +27,40 @@ rowRoute.route('/leaderboard').get((req, res) => {
 
 rowRoute.route('/').post(auth, (req, res, next) => {
     let row_data = req.body
-    
-    db.User.findOne({where: {email: req.user.email}}).then(user => {
-        db.Row.create({
-           date: row_data.date,
-           meters: row_data.meters,
-           athleteId: user.athleteId
-        }).then(rowing => {
-            res.json(rowing)
+
+    const name_parts = req.files.file.name.split('.');
+    const image_suffix = name_parts[name_parts.length - 1];
+
+    filename = crypto.randomUUID() + "." + image_suffix
+    sharp(req.files.file.data)
+        .resize(500, 500, {
+            fit: 'inside',
         })
-    })
+        .toBuffer()
+        .then(min_file => {
+            const params = {
+                Bucket: 'cfcp-comp-images',
+                Key: filename,
+                Body: min_file
+            };
+
+            s3.upload(params, function (err, data) {
+                if (err) {
+                    throw err;
+                }
+
+                db.User.findOne({ where: { email: req.user.email } }).then(user => {
+                    db.Row.create({
+                        date: row_data.date,
+                        meters: row_data.meters,
+                        athleteId: user.athleteId,
+                        proof_img: data.Location
+                    }).then(row => {
+                        res.json(row)
+                    })
+                })
+            });
+        });
 });
 
 // rowRoute.route('/').get((req, res) => {
