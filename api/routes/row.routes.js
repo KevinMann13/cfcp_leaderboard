@@ -46,7 +46,7 @@ rowRoute.route('/').post(auth, (req, res, next) => {
 
             s3.upload(params, function (err, data) {
                 if (err) {
-                    throw err;
+                    res.status(500).send(err)
                 }
 
                 db.User.findOne({ where: { email: req.user.email } }).then(user => {
@@ -60,7 +60,9 @@ rowRoute.route('/').post(auth, (req, res, next) => {
                     })
                 })
             });
-        });
+        },
+        error => { res.status(500).send(error)}
+        );
 });
 
 // rowRoute.route('/').get((req, res) => {

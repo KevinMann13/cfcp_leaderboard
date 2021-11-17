@@ -24,6 +24,9 @@
       <img [src]="preview" class="preview">
     </div>
   </form>
+  <div class="mb-3" *ngIf="errorMessage" class="error_message">
+    {{errorMessage}}
+  </div>
 </div>
 
 <div mat-dialog-actions>

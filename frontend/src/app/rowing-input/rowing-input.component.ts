@@ -20,6 +20,8 @@ export class RowingInputComponent {
   progressInfo: any;
   preview!: string;
 
+  errorMessage!: string;
+
   constructor(
     public dialogRef: MatDialogRef<RowingInputComponent>,
     private crudService: CrudService
@@ -84,14 +86,16 @@ export class RowingInputComponent {
 
 
   rowingInputFormSubmit(): void {
-    // this.selectedFiles
-
     this.crudService.AddRow(this.rowingInputForm.value.date, this.rowingInputForm.value.meters, this.selectedFile).subscribe(
       (response) => {
         console.log(response);
         this.dialogRef.close()
       },
-      (error) => {console.log("ERROR"); console.log(error)}
+      (error) => {
+        console.log("ERROR");
+        console.log(error);
+        this.errorMessage = error.error
+      }
     )
   }
 
