@@ -36,6 +36,7 @@ rowRoute.route('/').post(auth, (req, res, next) => {
         .resize(500, 500, {
             fit: 'inside',
         })
+        .withMetadata()
         .toBuffer()
         .then(min_file => {
             const params = {
@@ -61,7 +62,7 @@ rowRoute.route('/').post(auth, (req, res, next) => {
                 })
             });
         },
-        error => { res.status(500).send(error)}
+            error => { res.status(500).send(error) }
         );
 });
 
